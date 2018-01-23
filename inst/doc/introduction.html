@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<title>Introduction to cattonum</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.bn { color: #40a070; } /* BaseN */
+code span.fl { color: #40a070; } /* Float */
+code span.ch { color: #4070a0; } /* Char */
+code span.st { color: #4070a0; } /* String */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.ot { color: #007020; } /* Other */
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.fu { color: #06287e; } /* Function */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #880000; } /* Constant */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #19177c; } /* Variable */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.op { color: #666666; } /* Operator */
+code span.bu { } /* BuiltIn */
+code span.ex { } /* Extension */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.at { color: #7d9029; } /* Attribute */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Introduction to cattonum</h1>
+
+
+
+<section id="background" class="level2">
+<h2>Background</h2>
+<p>Categorical features often are a key part of many modern datasets in different industries. When it comes to performing supervised learning on these datasets, tree-based models theoretically (and in practice with certain software, like <a href="https://cran.r-project.org/package=h2o">h2o</a>) handle raw categorical features, but most other models do not. Many of the popular tree-based packages even require all numeric predictors. There are several other packages that encode categorical features as numeric features, including <a href="https://cran.r-project.org/package=CatEncoders">CatEncoders</a>, <a href="https://cran.r-project.org/package=dummies">dummies</a>, <a href="https://cran.r-project.org/package=fastDummies">fastDummies</a>, <a href="https://cran.r-project.org/package=h2o">h2o</a>, <a href="https://cran.r-project.org/package=makedummies">makedummies</a>, and <a href="https://cran.r-project.org/package=recipes">recipes</a>. These packages either provide a more limited selection of encoding options and/or are signifantly larger in scope and much more heavyweight. <code>cattonum</code> aims to provide a one-stop-shop for categorical encodings. Nothing more, nothing less.</p>
+</section>
+<section id="case-study" class="level2">
+<h2>Case study</h2>
+<p>We’ll demonstrate how to use <code>cattonum</code> by predicting flight delays (<code>dep_delay</code>) in the the <code>flights</code> dataset using random forests built with <code>ranger</code>.</p>
+<pre class="sourceCode r" id="cb1"><code class="sourceCode r"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(nycflights13)</div>
+<div class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(ranger)</div>
+<div class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(cattonum)</div>
+<div class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(dplyr))</div>
+<div class="sourceLine" id="cb1-5" data-line-number="5"></div>
+<div class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">set.seed</span>(<span class="dv">4444</span>)</div>
+<div class="sourceLine" id="cb1-7" data-line-number="7"></div>
+<div class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">data</span>(flights)</div>
+<div class="sourceLine" id="cb1-9" data-line-number="9"><span class="kw">str</span>(flights)</div>
+<div class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt; Classes 'tbl_df', 'tbl' and 'data.frame':    336776 obs. of  19 variables:</span></div>
+<div class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">#&gt;  $ year          : int  2013 2013 2013 2013 2013 2013 2013 2013 2013 2013 ...</span></div>
+<div class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">#&gt;  $ month         : int  1 1 1 1 1 1 1 1 1 1 ...</span></div>
+<div class="sourceLine" id="cb1-13" data-line-number="13"><span class="co">#&gt;  $ day           : int  1 1 1 1 1 1 1 1 1 1 ...</span></div>
+<div class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt;  $ dep_time      : int  517 533 542 544 554 554 555 557 557 558 ...</span></div>
+<div class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt;  $ sched_dep_time: int  515 529 540 545 600 558 600 600 600 600 ...</span></div>
+<div class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">#&gt;  $ dep_delay     : num  2 4 2 -1 -6 -4 -5 -3 -3 -2 ...</span></div>
+<div class="sourceLine" id="cb1-17" data-line-number="17"><span class="co">#&gt;  $ arr_time      : int  830 850 923 1004 812 740 913 709 838 753 ...</span></div>
+<div class="sourceLine" id="cb1-18" data-line-number="18"><span class="co">#&gt;  $ sched_arr_time: int  819 830 850 1022 837 728 854 723 846 745 ...</span></div>
+<div class="sourceLine" id="cb1-19" data-line-number="19"><span class="co">#&gt;  $ arr_delay     : num  11 20 33 -18 -25 12 19 -14 -8 8 ...</span></div>
+<div class="sourceLine" id="cb1-20" data-line-number="20"><span class="co">#&gt;  $ carrier       : chr  &quot;UA&quot; &quot;UA&quot; &quot;AA&quot; &quot;B6&quot; ...</span></div>
+<div class="sourceLine" id="cb1-21" data-line-number="21"><span class="co">#&gt;  $ flight        : int  1545 1714 1141 725 461 1696 507 5708 79 301 ...</span></div>
+<div class="sourceLine" id="cb1-22" data-line-number="22"><span class="co">#&gt;  $ tailnum       : chr  &quot;N14228&quot; &quot;N24211&quot; &quot;N619AA&quot; &quot;N804JB&quot; ...</span></div>
+<div class="sourceLine" id="cb1-23" data-line-number="23"><span class="co">#&gt;  $ origin        : chr  &quot;EWR&quot; &quot;LGA&quot; &quot;JFK&quot; &quot;JFK&quot; ...</span></div>
+<div class="sourceLine" id="cb1-24" data-line-number="24"><span class="co">#&gt;  $ dest          : chr  &quot;IAH&quot; &quot;IAH&quot; &quot;MIA&quot; &quot;BQN&quot; ...</span></div>
+<div class="sourceLine" id="cb1-25" data-line-number="25"><span class="co">#&gt;  $ air_time      : num  227 227 160 183 116 150 158 53 140 138 ...</span></div>
+<div class="sourceLine" id="cb1-26" data-line-number="26"><span class="co">#&gt;  $ distance      : num  1400 1416 1089 1576 762 ...</span></div>
+<div class="sourceLine" id="cb1-27" data-line-number="27"><span class="co">#&gt;  $ hour          : num  5 5 5 5 6 5 6 6 6 6 ...</span></div>
+<div class="sourceLine" id="cb1-28" data-line-number="28"><span class="co">#&gt;  $ minute        : num  15 29 40 45 0 58 0 0 0 0 ...</span></div>
+<div class="sourceLine" id="cb1-29" data-line-number="29"><span class="co">#&gt;  $ time_hour     : POSIXct, format: &quot;2013-01-01 05:00:00&quot; &quot;2013-01-01 05:00:00&quot; ...</span></div></code></pre>
+<p>There are a lot of flights here and we don’t want our model training to take forever, so let’s only take a subset of these observations. To simplify our analysis, we’ll analyze only the three airlines with the most flights, consider only flights that were delayed in taking off, and remove some features.</p>
+<pre class="sourceCode r" id="cb2"><code class="sourceCode r"><div class="sourceLine" id="cb2-1" data-line-number="1">airlines_to_keep &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span></div>
+<div class="sourceLine" id="cb2-2" data-line-number="2"><span class="st">                      </span><span class="kw">count</span>(carrier) <span class="op">%&gt;%</span></div>
+<div class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">                      </span><span class="kw">top_n</span>(<span class="dv">3</span>, n) <span class="op">%&gt;%</span></div>
+<div class="sourceLine" id="cb2-4" data-line-number="4"><span class="st">                      </span><span class="kw">pull</span>(carrier)</div>
+<div class="sourceLine" id="cb2-5" data-line-number="5"></div>
+<div class="sourceLine" id="cb2-6" data-line-number="6">flights &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span></div>
+<div class="sourceLine" id="cb2-7" data-line-number="7"><span class="st">             </span><span class="kw">filter</span>(carrier <span class="op">%in%</span><span class="st"> </span>airlines_to_keep, dep_delay <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span></div>
+<div class="sourceLine" id="cb2-8" data-line-number="8"><span class="st">             </span><span class="kw">select</span>(<span class="op">-</span><span class="kw">c</span>(year, dep_time, sched_dep_time, arr_time, sched_arr_time,</div>
+<div class="sourceLine" id="cb2-9" data-line-number="9">                       arr_delay, flight, tailnum, time_hour))</div></code></pre>
+<p>In order to get more out of our time features, we’ll do a quick transformation using the technique described <a href="https://ianlondon.github.io/blog/encoding-cyclical-features-24hour-time/">here</a>. Also, <code>month</code> and <code>day</code> are currently integers, but they really are categorical, so we now turn them into characters (or factors, it doesn’t matter for <code>cattonum</code>). For simplicity and to maintain focus on <code>cattonum</code>, simply drop observations with missing values.</p>
+<pre class="sourceCode r" id="cb3"><code class="sourceCode r"><div class="sourceLine" id="cb3-1" data-line-number="1">tot_mins &lt;-<span class="st"> </span><span class="dv">24</span> <span class="op">*</span><span class="st"> </span><span class="dv">60</span></div>
+<div class="sourceLine" id="cb3-2" data-line-number="2"></div>
+<div class="sourceLine" id="cb3-3" data-line-number="3">flights &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span></div>
+<div class="sourceLine" id="cb3-4" data-line-number="4"><span class="st">             </span><span class="kw">mutate</span>(<span class="dt">min_of_day =</span> <span class="dv">60</span> <span class="op">*</span><span class="st"> </span>hour <span class="op">+</span><span class="st"> </span>minute,</div>
+<div class="sourceLine" id="cb3-5" data-line-number="5">                    <span class="dt">cos_min_of_day =</span> <span class="kw">cos</span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>pi <span class="op">*</span><span class="st"> </span>min_of_day <span class="op">/</span><span class="st"> </span>tot_mins),</div>
+<div class="sourceLine" id="cb3-6" data-line-number="6">                    <span class="dt">sin_min_of_day =</span> <span class="kw">cos</span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>pi <span class="op">*</span><span class="st"> </span>min_of_day <span class="op">/</span><span class="st"> </span>tot_mins)) <span class="op">%&gt;%</span></div>
+<div class="sourceLine" id="cb3-7" data-line-number="7"><span class="st">             </span><span class="kw">select</span>(<span class="op">-</span><span class="kw">c</span>(min_of_day, hour, minute)) <span class="op">%&gt;%</span></div>
+<div class="sourceLine" id="cb3-8" data-line-number="8"><span class="st">             </span><span class="kw">mutate</span>(<span class="dt">month =</span> <span class="kw">as.character</span>(month),</div>
+<div class="sourceLine" id="cb3-9" data-line-number="9">                    <span class="dt">day =</span> <span class="kw">as.character</span>(day)) <span class="op">%&gt;%</span></div>
+<div class="sourceLine" id="cb3-10" data-line-number="10"><span class="st">             </span><span class="kw">filter</span>(<span class="kw">complete.cases</span>(.))</div>
+<div class="sourceLine" id="cb3-11" data-line-number="11"><span class="kw">str</span>(flights)</div>
+<div class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; Classes 'tbl_df', 'tbl' and 'data.frame':    71473 obs. of  10 variables:</span></div>
+<div class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt;  $ month         : chr  &quot;1&quot; &quot;1&quot; &quot;1&quot; &quot;1&quot; ...</span></div>
+<div class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt;  $ day           : chr  &quot;1&quot; &quot;1&quot; &quot;1&quot; &quot;1&quot; ...</span></div>
+<div class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt;  $ dep_delay     : num  2 4 1 11 3 24 8 1 1 1 ...</span></div>
+<div class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt;  $ carrier       : chr  &quot;UA&quot; &quot;UA&quot; &quot;B6&quot; &quot;UA&quot; ...</span></div>
+<div class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt;  $ origin        : chr  &quot;EWR&quot; &quot;LGA&quot; &quot;EWR&quot; &quot;JFK&quot; ...</span></div>
+<div class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt;  $ dest          : chr  &quot;IAH&quot; &quot;IAH&quot; &quot;PBI&quot; &quot;SFO&quot; ...</span></div>
+<div class="sourceLine" id="cb3-19" data-line-number="19"><span class="co">#&gt;  $ air_time      : num  227 227 147 366 175 52 151 243 380 188 ...</span></div>
+<div class="sourceLine" id="cb3-20" data-line-number="20"><span class="co">#&gt;  $ distance      : num  1400 1416 1023 2586 1074 ...</span></div>
+<div class="sourceLine" id="cb3-21" data-line-number="21"><span class="co">#&gt;  $ cos_min_of_day: num  1.95e-01 1.35e-01 6.12e-17 6.12e-17 -4.36e-02 ...</span></div>
+<div class="sourceLine" id="cb3-22" data-line-number="22"><span class="co">#&gt;  $ sin_min_of_day: num  1.95e-01 1.35e-01 6.12e-17 6.12e-17 -4.36e-02 ...</span></div></code></pre>
+<p>Now we turn to encoding our categorical features. Consider a comparison between label encoding, mean encoding, and a mix of frequency, label, and mean encoding. First, note a few key facts about the <code>catto_*</code> functions.</p>
+<ul>
+<li>They have three or four main parameters, depending on the function: <code>train</code>, <code>...</code>, <code>response</code>, and <code>test</code>. <code>train</code> holds the training data, <code>...</code> is where the columns to be encoded are specified (if not supplied, all character and factor columns are encoded), <code>response</code> is the name of the response column for <code>catto_loo</code> and <code>catto_mean</code>, and <code>test</code> (if supplied) holds the test data.</li>
+<li>The encoded data will be returned in either a <code>data.frame</code> or a <code>tibble</code>, whichever was passed (except for <code>catto_dummy</code> and <code>catto_onehot</code>, which currently always return a <code>data.frame</code>; this will be fixed in the future).</li>
+<li>If <code>test</code> is not supplied, the functions return a <code>data.frame</code> or <code>tibble</code>, as described above. Otherwise, they return a length-two list holding the relevant encoded datasets with names <code>train</code> and <code>test</code>.</li>
+<li>They are designed to work in <code>dplyr</code>-style pipelines using <code>%&gt;%</code> from <code>magrittr</code>.</li>
+<li>They can handle data in a <code>data.frame</code> or <code>tibble</code>, and features can be specified in many different ways like in <code>dplyr</code>. For example, the following are all equivalent for a data frame named <code>dat</code> with columns <code>x1</code> and <code>x2</code>.</li>
+</ul>
+<pre class="sourceCode r" id="cb4"><code class="sourceCode r"><div class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">catto_label</span>(dat)</div>
+<div class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">catto_label</span>(dat, x1, x2)</div>
+<div class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw">catto_label</span>(dat, <span class="kw">c</span>(x1, x2))</div>
+<div class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw">catto_label</span>(dat, <span class="kw">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>))</div>
+<div class="sourceLine" id="cb4-5" data-line-number="5"><span class="kw">catto_label</span>(dat, <span class="kw">one_of</span>(<span class="kw">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>))) <span class="co"># one_of is exported by dplyr</span></div>
+<div class="sourceLine" id="cb4-6" data-line-number="6"><span class="kw">catto_label</span>(dat, <span class="kw">one_of</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>))</div></code></pre>
+<p>Here we make the encoded datasets.</p>
+<pre class="sourceCode r" id="cb5"><code class="sourceCode r"><div class="sourceLine" id="cb5-1" data-line-number="1">label_encoded &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span></div>
+<div class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">                   </span><span class="kw">catto_label</span>()</div>
+<div class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">str</span>(label_encoded)</div>
+<div class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt; Classes 'tbl_df', 'tbl' and 'data.frame':    71473 obs. of  10 variables:</span></div>
+<div class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt;  $ month         : int  5 5 5 5 5 5 5 5 5 5 ...</span></div>
+<div class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt;  $ day           : int  20 20 20 20 20 20 20 20 20 20 ...</span></div>
+<div class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt;  $ dep_delay     : num  2 4 1 11 3 24 8 1 1 1 ...</span></div>
+<div class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt;  $ carrier       : int  3 3 1 3 1 2 3 3 3 3 ...</span></div>
+<div class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt;  $ origin        : int  3 1 3 2 2 3 3 1 3 3 ...</span></div>
+<div class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt;  $ dest          : int  92 92 91 96 83 88 97 89 47 87 ...</span></div>
+<div class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;  $ air_time      : num  227 227 147 366 175 52 151 243 380 188 ...</span></div>
+<div class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;  $ distance      : num  1400 1416 1023 2586 1074 ...</span></div>
+<div class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt;  $ cos_min_of_day: num  1.95e-01 1.35e-01 6.12e-17 6.12e-17 -4.36e-02 ...</span></div>
+<div class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt;  $ sin_min_of_day: num  1.95e-01 1.35e-01 6.12e-17 6.12e-17 -4.36e-02 ...</span></div>
+<div class="sourceLine" id="cb5-15" data-line-number="15"></div>
+<div class="sourceLine" id="cb5-16" data-line-number="16">mean_encoded &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span></div>
+<div class="sourceLine" id="cb5-17" data-line-number="17"><span class="st">                  </span><span class="kw">catto_mean</span>(<span class="dt">response =</span> dep_delay)</div>
+<div class="sourceLine" id="cb5-18" data-line-number="18"><span class="kw">str</span>(mean_encoded)</div>
+<div class="sourceLine" id="cb5-19" data-line-number="19"><span class="co">#&gt; Classes 'tbl_df', 'tbl' and 'data.frame':    71473 obs. of  10 variables:</span></div>
+<div class="sourceLine" id="cb5-20" data-line-number="20"><span class="co">#&gt;  $ month         : num  35.2 35.2 35.2 35.2 35.2 ...</span></div>
+<div class="sourceLine" id="cb5-21" data-line-number="21"><span class="co">#&gt;  $ day           : num  42.4 42.4 42.4 42.4 42.4 ...</span></div>
+<div class="sourceLine" id="cb5-22" data-line-number="22"><span class="co">#&gt;  $ dep_delay     : num  2 4 1 11 3 24 8 1 1 1 ...</span></div>
+<div class="sourceLine" id="cb5-23" data-line-number="23"><span class="co">#&gt;  $ carrier       : num  29.8 29.8 39.7 29.8 39.7 ...</span></div>
+<div class="sourceLine" id="cb5-24" data-line-number="24"><span class="co">#&gt;  $ origin        : num  38.5 47.4 38.5 37.6 37.6 ...</span></div>
+<div class="sourceLine" id="cb5-25" data-line-number="25"><span class="co">#&gt;  $ dest          : num  27.6 27.6 35.3 30.7 29.3 ...</span></div>
+<div class="sourceLine" id="cb5-26" data-line-number="26"><span class="co">#&gt;  $ air_time      : num  227 227 147 366 175 52 151 243 380 188 ...</span></div>
+<div class="sourceLine" id="cb5-27" data-line-number="27"><span class="co">#&gt;  $ distance      : num  1400 1416 1023 2586 1074 ...</span></div>
+<div class="sourceLine" id="cb5-28" data-line-number="28"><span class="co">#&gt;  $ cos_min_of_day: num  1.95e-01 1.35e-01 6.12e-17 6.12e-17 -4.36e-02 ...</span></div>
+<div class="sourceLine" id="cb5-29" data-line-number="29"><span class="co">#&gt;  $ sin_min_of_day: num  1.95e-01 1.35e-01 6.12e-17 6.12e-17 -4.36e-02 ...</span></div>
+<div class="sourceLine" id="cb5-30" data-line-number="30"></div>
+<div class="sourceLine" id="cb5-31" data-line-number="31">mix_encoded &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span></div>
+<div class="sourceLine" id="cb5-32" data-line-number="32"><span class="st">                 </span><span class="kw">catto_freq</span>(dest) <span class="op">%&gt;%</span></div>
+<div class="sourceLine" id="cb5-33" data-line-number="33"><span class="st">                 </span><span class="kw">catto_label</span>(origin) <span class="op">%&gt;%</span></div>
+<div class="sourceLine" id="cb5-34" data-line-number="34"><span class="st">                 </span><span class="kw">catto_mean</span>(<span class="dt">response =</span> dep_delay)</div>
+<div class="sourceLine" id="cb5-35" data-line-number="35"><span class="kw">str</span>(mix_encoded)</div>
+<div class="sourceLine" id="cb5-36" data-line-number="36"><span class="co">#&gt; Classes 'tbl_df', 'tbl' and 'data.frame':    71473 obs. of  10 variables:</span></div>
+<div class="sourceLine" id="cb5-37" data-line-number="37"><span class="co">#&gt;  $ month         : num  35.2 35.2 35.2 35.2 35.2 ...</span></div>
+<div class="sourceLine" id="cb5-38" data-line-number="38"><span class="co">#&gt;  $ day           : num  42.4 42.4 42.4 42.4 42.4 ...</span></div>
+<div class="sourceLine" id="cb5-39" data-line-number="39"><span class="co">#&gt;  $ dep_delay     : num  2 4 1 11 3 24 8 1 1 1 ...</span></div>
+<div class="sourceLine" id="cb5-40" data-line-number="40"><span class="co">#&gt;  $ carrier       : num  29.8 29.8 39.7 29.8 39.7 ...</span></div>
+<div class="sourceLine" id="cb5-41" data-line-number="41"><span class="co">#&gt;  $ origin        : int  3 1 3 2 2 3 3 1 3 3 ...</span></div>
+<div class="sourceLine" id="cb5-42" data-line-number="42"><span class="co">#&gt;  $ dest          : int  3142 3142 2340 3547 1129 1767 3999 1996 336 1562 ...</span></div>
+<div class="sourceLine" id="cb5-43" data-line-number="43"><span class="co">#&gt;  $ air_time      : num  227 227 147 366 175 52 151 243 380 188 ...</span></div>
+<div class="sourceLine" id="cb5-44" data-line-number="44"><span class="co">#&gt;  $ distance      : num  1400 1416 1023 2586 1074 ...</span></div>
+<div class="sourceLine" id="cb5-45" data-line-number="45"><span class="co">#&gt;  $ cos_min_of_day: num  1.95e-01 1.35e-01 6.12e-17 6.12e-17 -4.36e-02 ...</span></div>
+<div class="sourceLine" id="cb5-46" data-line-number="46"><span class="co">#&gt;  $ sin_min_of_day: num  1.95e-01 1.35e-01 6.12e-17 6.12e-17 -4.36e-02 ...</span></div></code></pre>
+<p>Now we can finally build the models. We define a short function <code>get_oob_error</code> that builds an untuned random forest and returns the out-of-bag error.</p>
+<pre class="sourceCode r" id="cb6"><code class="sourceCode r"><div class="sourceLine" id="cb6-1" data-line-number="1">encodings &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">label =</span> label_encoded,</div>
+<div class="sourceLine" id="cb6-2" data-line-number="2">                  <span class="dt">mean =</span> mean_encoded,</div>
+<div class="sourceLine" id="cb6-3" data-line-number="3">                  <span class="dt">mix =</span> mix_encoded)</div>
+<div class="sourceLine" id="cb6-4" data-line-number="4"></div>
+<div class="sourceLine" id="cb6-5" data-line-number="5">get_oob_error &lt;-<span class="st"> </span><span class="cf">function</span>(dat) {</div>
+<div class="sourceLine" id="cb6-6" data-line-number="6">  rf &lt;-<span class="st"> </span><span class="kw">ranger</span>(<span class="dt">data =</span> <span class="kw">as.data.frame</span>(dat), <span class="co"># ranger can't handle tibbles</span></div>
+<div class="sourceLine" id="cb6-7" data-line-number="7">               <span class="dt">num.trees =</span> <span class="dv">100</span>,</div>
+<div class="sourceLine" id="cb6-8" data-line-number="8">               <span class="dt">dependent.variable.name =</span> <span class="st">&quot;dep_delay&quot;</span>)</div>
+<div class="sourceLine" id="cb6-9" data-line-number="9">  rf<span class="op">$</span>prediction.error</div>
+<div class="sourceLine" id="cb6-10" data-line-number="10">}</div>
+<div class="sourceLine" id="cb6-11" data-line-number="11"></div>
+<div class="sourceLine" id="cb6-12" data-line-number="12"><span class="kw">lapply</span>(encodings, get_oob_error)</div>
+<div class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt; $label</span></div>
+<div class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt; [1] 2433.513</span></div>
+<div class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt; </span></div>
+<div class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt; $mean</span></div>
+<div class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt; [1] 2417.869</span></div>
+<div class="sourceLine" id="cb6-18" data-line-number="18"><span class="co">#&gt; </span></div>
+<div class="sourceLine" id="cb6-19" data-line-number="19"><span class="co">#&gt; $mix</span></div>
+<div class="sourceLine" id="cb6-20" data-line-number="20"><span class="co">#&gt; [1] 2419.844</span></div></code></pre>
+<p>Mean encoding gives us the lowest OOB error, followed by the mixed encodings and label encoding. This modeling setup of simply looking at OOB score on untuned random forests of 100 trees is not really a fair comparison, but it demonstrates the basic features of <code>cattonum</code>.</p>
+</section>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
