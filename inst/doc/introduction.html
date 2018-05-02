@@ -268,13 +268,13 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 
-<section id="background" class="level2">
+<div id="background" class="section level2">
 <h2>Background</h2>
-<p>Categorical features often are a key part of many modern datasets in different industries. When it comes to performing supervised learning on these datasets, tree-based models theoretically (and in practice with certain software, like <a href="https://cran.r-project.org/package=h2o">h2o</a>) handle raw categorical features, but most other models do not. Many of the popular tree-based packages even require all numeric predictors. There are several other packages that encode categorical features as numeric features, including <a href="https://cran.r-project.org/package=CatEncoders">CatEncoders</a>, <a href="https://cran.r-project.org/package=dummies">dummies</a>, <a href="https://cran.r-project.org/package=fastDummies">fastDummies</a>, <a href="https://cran.r-project.org/package=h2o">h2o</a>, <a href="https://cran.r-project.org/package=makedummies">makedummies</a>, and <a href="https://cran.r-project.org/package=recipes">recipes</a>. These packages either provide a more limited selection of encoding options and/or are signifantly larger in scope and much more heavyweight. <code>cattonum</code> aims to provide a one-stop-shop for categorical encodings. Nothing more, nothing less.</p>
-</section>
-<section id="case-study" class="level2">
+<p>Categorical features often are a key part of many modern datasets in different industries. When it comes to performing supervised learning on these datasets, tree-based models theoretically (and in practice with certain software, like <a href="https://cran.r-project.org/package=h2o">h2o</a>) handle raw categorical features, but most other models do not. Many of the popular tree-based packages even require all numeric predictors. There are several other packages that encode categorical features as numeric features, including <a href="https://cran.r-project.org/package=CatEncoders">CatEncoders</a>, <a href="https://cran.r-project.org/package=dummies">dummies</a>, <a href="https://CRAN.R-project.org/package=FeatureHashing">FeatureHashing</a>, <a href="https://cran.r-project.org/package=fastDummies">fastDummies</a>, <a href="https://cran.r-project.org/package=h2o">h2o</a>, <a href="https://cran.r-project.org/package=makedummies">makedummies</a>, <a href="https://cran.r-project.org/package=recipes">recipes</a>, and <a href="https://CRAN.R-project.org/package=vtreat">vtreat</a>. These packages either provide a more limited selection of encoding options and/or are signifantly larger in scope and much more heavyweight. <code>cattonum</code> aims to provide a one-stop-shop for categorical encodings. Nothing more, nothing less.</p>
+</div>
+<div id="case-study" class="section level2">
 <h2>Case study</h2>
-<p>We’ll demonstrate how to use <code>cattonum</code> by predicting flight delays (<code>dep_delay</code>) in the the <code>flights</code> dataset using random forests built with <code>ranger</code>.</p>
+<p>We’ll demonstrate how to use <code>cattonum</code> by predicting flight delays (<code>dep_delay</code>) in the the <code>nycflights13::flights</code> dataset using random forests built with <code>ranger</code>.</p>
 <pre class="sourceCode r" id="cb1"><code class="sourceCode r"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(nycflights13)</div>
 <div class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(ranger)</div>
 <div class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(cattonum)</div>
@@ -340,7 +340,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>Now we turn to encoding our categorical features. Consider a comparison between label encoding, mean encoding, and a mix of frequency, label, and mean encoding. First, note a few key facts about the <code>catto_*</code> functions.</p>
 <ul>
 <li>They have three or four main parameters, depending on the function: <code>train</code>, <code>...</code>, <code>response</code>, and <code>test</code>. <code>train</code> holds the training data, <code>...</code> is where the columns to be encoded are specified (if not supplied, all character and factor columns are encoded), <code>response</code> is the name of the response column for <code>catto_loo</code> and <code>catto_mean</code>, and <code>test</code> (if supplied) holds the test data.</li>
-<li>The encoded data will be returned in either a <code>data.frame</code> or a <code>tibble</code>, whichever was passed (except for <code>catto_dummy</code> and <code>catto_onehot</code>, which currently always return a <code>data.frame</code>; this will be fixed in the future).</li>
+<li>The encoded data will be returned in either a <code>data.frame</code> or a <code>tibble</code>, whichever was passed.</li>
 <li>If <code>test</code> is not supplied, the functions return a <code>data.frame</code> or <code>tibble</code>, as described above. Otherwise, they return a length-two list holding the relevant encoded datasets with names <code>train</code> and <code>test</code>.</li>
 <li>They are designed to work in <code>dplyr</code>-style pipelines using <code>%&gt;%</code> from <code>magrittr</code>.</li>
 <li>They can handle data in a <code>data.frame</code> or <code>tibble</code>, and features can be specified in many different ways like in <code>dplyr</code>. For example, the following are all equivalent for a data frame named <code>dat</code> with columns <code>x1</code> and <code>x2</code>.</li>
@@ -420,7 +420,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <div class="sourceLine" id="cb6-19" data-line-number="19"><span class="co">#&gt; $mix</span></div>
 <div class="sourceLine" id="cb6-20" data-line-number="20"><span class="co">#&gt; [1] 2419.844</span></div></code></pre>
 <p>Mean encoding gives us the lowest OOB error, followed by the mixed encodings and label encoding. This modeling setup of simply looking at OOB score on untuned random forests of 100 trees is not really a fair comparison, but it demonstrates the basic features of <code>cattonum</code>.</p>
-</section>
+</div>
 
 
 

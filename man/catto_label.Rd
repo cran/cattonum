@@ -4,8 +4,8 @@
 \alias{catto_label}
 \title{Label encoding}
 \usage{
-catto_label(train, ..., test, ordering = c("increasing", "decreasing",
-  "observed", "random"), verbose = TRUE, seed = 4444)
+catto_label(train, ..., test, ordering = "increasing", verbose = TRUE,
+  seed = 4444)
 }
 \arguments{
 \item{train}{The training data, in a \code{data.frame} or \code{tibble}.}
@@ -15,22 +15,40 @@ all character and factor columns are encoded.}
 
 \item{test}{The test data, in a \code{data.frame} or \code{tibble}.}
 
-\item{ordering}{How should labels be assigned to levels?  Options are
-"increasing", "decreasing", "observed", and "random".}
+\item{ordering}{How should labels be assigned to levels?  There are
+three different ways to pass this argument.  First, a length one
+character vector with value "increasing", "decreasing", "observed",
+or "random" will apply that ordering to each column being encoded.
+Second, a character vector of length greater than one may be passed,
+specifying one of the above four options for each column being encoded.
+Finally, a list may be passed specifying a user-defined ordering for each
+column being encoded.}
 
 \item{verbose}{Should informative messages be printed?  Defaults to
-\code{TRUE}.}
+\code{TRUE} (not yet used).}
 
-\item{seed}{To be used in the future.}
+\item{seed}{The random seed set before all random ordering encodings
+if there are any.}
 }
 \value{
 The encoded dataset in a \code{data.frame} or \code{tibble},
-  whichever was input.  If a test dataset was provided, a named list
-  is returned holding the encoded training and test datasets.
+  whichever was input.  If a test dataset was provided, a list with names
+  "train" and "test" is returned holding the encoded training and
+  test datasets.
 }
 \description{
 Label encoding
 }
 \examples{
-catto_label(iris, response = Sepal.Length)
+catto_label(iris)
+
+y <- 2 ^ (0:5)
+x1 <- c("a", "b", NA, "b", "a", "a")
+x2 <- c("c", "c", "c", "d", "d", "c")
+df_fact <- data.frame(y, x1, x2)
+
+catto_label(df_fact,
+            ordering = list(c("b", "a"), c("c", "d")))
+
+catto_label(df_fact, ordering = c("increasing", "decreasing"))
 }

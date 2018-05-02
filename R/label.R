@@ -16,14 +16,74 @@ ordering_fun <- function(.method) {
 ### ordered_labels ###
 ######################
 
-ordered_labels <- function(.x, .type) {
+ordered_labels <- function(.x, .how) {
 
   if (is.factor(.x)) .x <- as.character(.x)
-  order_fun <- ordering_fun(.type)
+  order_fun <- ordering_fun(.how)
   ordered_labs <- order_fun(.x)
   data.frame(new_lab = seq_along(ordered_labs),
              row.names = ordered_labs)
 
+}
+
+######################
+### parse_ordering ###
+######################
+
+parse_ordering <- function(.ordering, ...) UseMethod("parse_ordering")
+
+parse_ordering.character <- function(.ordering, .n_cats, ...) {
+
+  stopifnot(is.element(length(.ordering), c(1, .n_cats)))
+
+  valid_orderings <- c("increasing",
+                       "decreasing",
+                       "observed",
+                       "random")
+
+  vapply(.ordering,
+         match.arg,
+         character(1),
+         choices = valid_orderings)
+
+}
+
+parse_ordering.list <- function(.ordering, ...) {
+  .ordering
+}
+
+parse_ordering.default <- function(.ordering, ...) {
+  stop("`parse_ordering` can't handle class", class(.ordering), ".",
+       call. = FALSE)
+}
+
+#######################
+### make_lkp_tables ###
+#######################
+
+make_lkp_tables <- function(.order, ...) UseMethod("make_lkp_tables")
+
+make_lkp_tables.list <- function(.order, .dat, ...) {
+  Map(lkp_from_list, .ord = .order, .orig_col = .dat)
+}
+
+make_lkp_tables.character <- function(.order, .dat, .seed, ...) {
+  if (any(.order == "random")) set.seed(.seed)
+  Map(ordered_labels, .x = .dat, .how = .order)
+}
+
+make_lkp_tables.default <- function(.order, ...) {
+  stop("`make_lkp_tables` can't handle class", class(.order), ".",
+       call. = FALSE)
+}
+
+#####################
+### lkp_from_list ###
+#####################
+
+lkp_from_list <- function(.ord, .orig_col) {
+  stopifnot(setequal(.ord, stats::na.omit(.orig_col)))
+  data.frame(new_lab = seq_along(.ord), row.names = .ord)
 }
 
 ###################
@@ -36,24 +96,39 @@ ordered_labels <- function(.x, .type) {
 #' @param ... The columns to be encoded.  If none are specified, then
 #'   all character and factor columns are encoded.
 #' @param test The test data, in a \code{data.frame} or \code{tibble}.
-#' @param ordering How should labels be assigned to levels?  Options are
-#'   "increasing", "decreasing", "observed", and "random".
+#' @param ordering How should labels be assigned to levels?  There are
+#'   three different ways to pass this argument.  First, a length one
+#'   character vector with value "increasing", "decreasing", "observed",
+#'   or "random" will apply that ordering to each column being encoded.
+#'   Second, a character vector of length greater than one may be passed,
+#'   specifying one of the above four options for each column being encoded.
+#'   Finally, a list may be passed specifying a user-defined ordering for each
+#'   column being encoded.
 #' @param verbose Should informative messages be printed?  Defaults to
-#'   \code{TRUE}.
-#' @param seed To be used in the future.
+#'   \code{TRUE} (not yet used).
+#' @param seed The random seed set before all random ordering encodings
+#'   if there are any.
 #' @return The encoded dataset in a \code{data.frame} or \code{tibble},
-#'   whichever was input.  If a test dataset was provided, a named list
-#'   is returned holding the encoded training and test datasets.
+#'   whichever was input.  If a test dataset was provided, a list with names
+#'   "train" and "test" is returned holding the encoded training and
+#'   test datasets.
 #' @examples
-#' catto_label(iris, response = Sepal.Length)
+#' catto_label(iris)
+#'
+#' y <- 2 ^ (0:5)
+#' x1 <- c("a", "b", NA, "b", "a", "a")
+#' x2 <- c("c", "c", "c", "d", "d", "c")
+#' df_fact <- data.frame(y, x1, x2)
+#'
+#' catto_label(df_fact,
+#'             ordering = list(c("b", "a"), c("c", "d")))
+#'
+#' catto_label(df_fact, ordering = c("increasing", "decreasing"))
 #' @export
 catto_label <- function(train,
                         ...,
                         test,
-                        ordering = c("increasing",
-                                     "decreasing",
-                                     "observed",
-                                     "random"),
+                        ordering = "increasing",
                         verbose = TRUE,
                         seed = 4444) {
 
@@ -63,11 +138,11 @@ catto_label <- function(train,
 
   nms <- names(train)
 
-  ordering <- match.arg(ordering)
-
   cats <- pick_cols(train, ...)
 
-  encoding_lkps <- lapply(train[cats], ordered_labels, .type = ordering)
+  ordering <- parse_ordering(ordering, length(cats))
+
+  encoding_lkps <- make_lkp_tables(ordering, train[cats], seed)
 
   train[cats] <- encode_from_lkp(train[cats], encoding_lkps)
 
@@ -79,5 +154,3 @@ catto_label <- function(train,
   }
 
 }
-
-###

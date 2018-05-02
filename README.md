@@ -3,12 +3,16 @@
 
 # cattonum
 
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/cattonum)](https://CRAN.R-project.org/package=cattonum)
 [![Build
 Status](https://travis-ci.org/bfgray3/cattonum.svg?branch=master)](https://travis-ci.org/bfgray3/cattonum)
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/bfgray3/cattonum?branch=master&svg=true)](https://ci.appveyor.com/project/bfgray3/cattonum)
 [![Coverage
 status](https://codecov.io/gh/bfgray3/cattonum/branch/master/graph/badge.svg)](https://codecov.io/github/bfgray3/cattonum?branch=master)
+[![Total
+Downloads](http://cranlogs.r-pkg.org/badges/grand-total/cattonum)](https://CRAN.R-project.org/package=cattonum)
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 
 ## Summary
 
@@ -21,6 +25,7 @@ features as numerics. It includes the following:
   - label encoding: `catto_label`
   - leave-one-out encoding: `catto_loo`
   - mean encoding: `catto_mean`
+  - median encoding: `catto_median`
   - one-hot encoding: `catto_onehot`
 
 There are many existing packages with which to encode categorical
@@ -29,20 +34,27 @@ features, including (among others):
   - [CatEncoders](https://cran.r-project.org/package=CatEncoders)
   - [dummies](https://cran.r-project.org/package=dummies)
   - [fastDummies](https://cran.r-project.org/package=fastDummies)
+  - [FeatureHashing](https://CRAN.R-project.org/package=FeatureHashing)
   - [h2o](https://cran.r-project.org/package=h2o)
   - [makedummies](https://cran.r-project.org/package=makedummies)
   - [recipes](https://cran.r-project.org/package=recipes)
+  - [vtreat](https://CRAN.R-project.org/package=vtreat)
 
-The goal of `catto_num` is to be a one-stop shop for all categorical
+The goal of `cattonum` is to be a one-stop shop for all categorical
 encoding needs. Nothing more, nothing less.
 
 ## Installation
 
-`cattonum` can be installed from GitHub with `devtools`.
+The development version of `cattonum` can be installed from GitHub.
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("bfgray3/cattonum")
+remotes::install_github("bfgray3/cattonum")
+```
+
+The latest official release of `cattonum` can be installed from CRAN.
+
+``` r
+install.packages("cattonum")
 ```
 
 ## Usage

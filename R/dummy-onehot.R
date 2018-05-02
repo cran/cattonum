@@ -14,7 +14,6 @@ make_form <- function(.vars, .enc = c("dummy", "onehot")) {
 ### set_levels ###
 ##################
 
-# TODO: just use `levels<-`
 set_levels <- function(.f, .l) {
   factor(.f, levels = .l)
 }
@@ -64,7 +63,7 @@ df_to_binary <- function(.df, .enc, .cats, .levs = NULL) {
   df_keep <- .df[setdiff(names(.df), .cats)]
   rm(.df)
   df_cat <- model_matrix(df_cat, .enc_type = .enc, .levels = .levs)
-  cbind(df_keep, df_cat)
+  dplyr::bind_cols(df_keep, as.data.frame(df_cat))
 }
 
 ####################
@@ -91,7 +90,6 @@ dummy_onehot <- function(.enc_type) {
       test_expanded <- df_to_binary(test, .enc_type, cats, train_levels)
     }
 
-    # TODO: make sure this returns a tibble if one was passed; doesn't now
     if (! test_also) {
       train_expanded
     } else {
@@ -112,12 +110,14 @@ dummy_onehot <- function(.enc_type) {
 #' @param ... The columns to be encoded.  If none are specified, then
 #'   all character and factor columns are encoded.
 #' @param test The test data, in a \code{data.frame} or \code{tibble}.
-#' @param verbose To be used in the future.
-#' @return The encoded dataset in a \code{data.frame}.  If a test dataset
-#'   was provided, a named list is returned holding the encoded training
-#'   and test datasets.
+#' @param verbose Should informative messages be printed?  Defaults to
+#'   \code{TRUE} (not yet used).
+#' @return The encoded dataset in a \code{data.frame} or \code{tibble},
+#'   whichever was input.  If a test dataset was provided, a list with names
+#'   "train" and "test" is returned holding the encoded training and
+#'   test datasets.
 #' @examples
-#' catto_onehot(iris, response = Sepal.Length)
+#' catto_onehot(iris)
 #' @export
 catto_onehot <- dummy_onehot("onehot")
 
@@ -131,13 +131,13 @@ catto_onehot <- dummy_onehot("onehot")
 #' @param ... The columns to be encoded.  If none are specified, then
 #'   all character and factor columns are encoded.
 #' @param test The test data, in a \code{data.frame} or \code{tibble}.
-#' @param verbose To be used in the future.
-#' @return The encoded dataset in a \code{data.frame}.  If a test dataset
-#'   was provided, a named list is returned holding the encoded training
-#'   and test datasets.
+#' @param verbose Should informative messages be printed?  Defaults to
+#'   \code{TRUE} (not yet used).
+#' @return The encoded dataset in a \code{data.frame} or \code{tibble},
+#'   whichever was input.  If a test dataset was provided, a list with names
+#'   "train" and "test" is returned holding the encoded training and
+#'   test datasets.
 #' @examples
-#' catto_dummy(iris, response = Sepal.Length)
+#' catto_dummy(iris)
 #' @export
 catto_dummy <- dummy_onehot("dummy")
-
-###

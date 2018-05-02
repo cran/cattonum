@@ -39,8 +39,7 @@ test_that("catto_dummy: multiple data.frame training columns.", {
 test_that("catto_dummy: multiple tibble training columns.", {
 
   both_encoded <- check_x1_x2(catto_dummy, "tibble")
-  # TODO: make sure this returns a tibble
-  for (m in both_encoded) expect_equal(m, expected_df_both)
+  for (m in both_encoded) expect_equal(m, expected_tbl_both)
 
 })
 
@@ -69,31 +68,42 @@ test_that("catto_dummy: one tibble training column.", {
   num_tests <- length(one_encoded)
 
   for (i in seq(from = 1, to = num_tests / 2)) {
-    expect_equal(one_encoded[[i]], expected_x1_df_fact)
+    expect_equal(one_encoded[[i]], expected_x1_tbl_fact)
   }
 
   for (i in seq(from = num_tests / 2 + 1, to = num_tests)) {
-    expect_equal(one_encoded[[i]], expected_x1_df_char)
+    expect_equal(one_encoded[[i]], expected_x1_tbl_char)
   }
 
 })
+
 #################
 ### TEST DATA ###
 #################
 
-#test_that("catto_dummy correctly encodes test data.", {
+test_that("catto_dummy correctly encodes test data.", {
 
-#  test_df <- data.frame(y = seq_len(3),
-#                        x1 = c("e", NA, "b"),
-#                        x2 = c("c", "d","c"))
+  small_test_df <- data.frame(y = seq_len(3),
+                              x1 = c("e", NA, "b"),
+                              x2 = c("c", "d","c"))
 
-#  expected_test <- data.frame(y = seq_len(3),
-#                              x2 = c("c", "d", "c"),
-#                              x1b = c(NA, NA, 1))
+  expected_test <- data.frame(y = seq_len(3),
+                              x2 = c("c", "d", "c"),
+                              x1b = c(NA, NA, 1))
 
-#  expect_equal(catto_dummy(df_fact, x1, test = test_df),
-#               list(train = expected_x1, test = expected_test))
+  expect_equal(catto_dummy(df_fact, x1, test = small_test_df),
+               list(train = expected_x1_df_fact, test = expected_test))
 
-#})
+})
 
-###
+####################
+### MANY COLUMNS ###
+####################
+
+test_that("catto_dummy handles many columns.", {
+
+  wide <- as.data.frame(matrix(c("a", "b"), nrow = 2, ncol = 5e3))
+  expect_silent(encoded_wide <- catto_dummy(wide))
+  expect_equal(dim(wide), dim(encoded_wide))
+
+})
