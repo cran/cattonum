@@ -7,3 +7,10 @@
 #' @docType package
 #' @name cattonum
 NULL
+
+#' @useDynLib cattonum, .registration = TRUE
+#' @importFrom Rcpp sourceCpp
+NULL
+
+#' @importFrom tibble tibble is_tibble
+NULL

@@ -4,7 +4,7 @@
 \alias{catto_loo}
 \title{Leave-one-out encoding}
 \usage{
-catto_loo(train, ..., response, test, verbose = TRUE)
+catto_loo(train, ..., response = NULL, test = NULL, verbose = TRUE)
 }
 \arguments{
 \item{train}{The training data, in a \code{data.frame} or \code{tibble}.}
@@ -20,10 +20,8 @@ all character and factor columns are encoded.}
 \code{TRUE}.}
 }
 \value{
-The encoded dataset in a \code{data.frame} or \code{tibble},
-  whichever was input.  If a test dataset was provided, a list with names
-  "train" and "test" is returned holding the encoded training and
-  test datasets.
+The encoded dataset in a \code{cattonum_df} if no test dataset was
+provided, and the encoded datasets in a \code{cattonum_df2} otherwise.
 }
 \description{
 Leave-one-out encoding

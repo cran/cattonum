@@ -1,7 +1,7 @@
-## ----setup, include = FALSE----------------------------------------------
+## ----setup, include = FALSE---------------------------------------------------
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 library(nycflights13)
 library(ranger)
 library(cattonum)
@@ -12,7 +12,7 @@ set.seed(4444)
 data(flights)
 str(flights)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 airlines_to_keep <- flights %>%
                       count(carrier) %>%
                       top_n(3, n) %>%
@@ -23,7 +23,7 @@ flights <- flights %>%
              select(-c(year, dep_time, sched_dep_time, arr_time, sched_arr_time,
                        arr_delay, flight, tailnum, time_hour))
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 tot_mins <- 24 * 60
 
 flights <- flights %>%
@@ -36,7 +36,7 @@ flights <- flights %>%
              filter(complete.cases(.))
 str(flights)
 
-## ---- eval = FALSE-------------------------------------------------------
+## ---- eval = FALSE------------------------------------------------------------
 #  catto_label(dat)
 #  catto_label(dat, x1, x2)
 #  catto_label(dat, c(x1, x2))
@@ -44,7 +44,7 @@ str(flights)
 #  catto_label(dat, one_of(c("x1", "x2"))) # one_of is exported by dplyr
 #  catto_label(dat, one_of("x1", "x2"))
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 label_encoded <- flights %>%
                    catto_label()
 str(label_encoded)
@@ -59,7 +59,7 @@ mix_encoded <- flights %>%
                  catto_mean(response = dep_delay)
 str(mix_encoded)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 encodings <- list(label = label_encoded,
                   mean = mean_encoded,
                   mix = mix_encoded)
