@@ -1,3 +1,7 @@
+# cattonum 0.0.4
+
+* This is a maintenance release due to a change in a dependency.  There are no user-facing changes.
+
 # cattonum 0.0.3
 
 * `catto_label()` no longer has a `seed` argument.  Users must now set their own seeds outside of cattonum functions.
