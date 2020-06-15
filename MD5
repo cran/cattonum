@@ -1,11 +1,11 @@
-77af17b09c017bb0b5675221ce1f2e31 *DESCRIPTION
+08d2d9a7312a16e0452d2491ff723604 *DESCRIPTION
 02d563597d178dade77b8914b2042931 *LICENSE
 f24a6896d50bd19ce4841ba152c0caea *NAMESPACE
-f9626a45b8e1f0aa8f95733309e53a91 *NEWS.md
+a658843e15c24a143354e110ea13e725 *NEWS.md
 2dc30123ba1e13267d8a682b6f06841d *R/RcppExports.R
 6303b68f892b68d9653d8685193d8b35 *R/aggregate.R
 298102bfaaa1c200d67b9fccb42ef29c *R/cattonum-methods.R
-5e54807a546b0659181852bec4a345f4 *R/cattonum.R
+6e9e4309de0c63579ea88b6c9250dad3 *R/cattonum.R
 8a260e86e9cf62617f86d8f3a837ceae *R/constructors.R
 d0e46e37fe20eaaa8b8ab043b15b964f *R/dummy-onehot.R
 7eb3974ddde56284958cd8bb0c91c56e *R/freq.R
@@ -16,7 +16,7 @@ f41d8093f43df9eb3dc0d0e807af2d79 *R/label.R
 d7eec0aa217701b16961b2e42a81b403 *build/vignette.rds
 892dd35d64f804ed2dac56d17468652c *inst/doc/introduction.R
 eb31e6f7c0b41d67ce0503a266b3914c *inst/doc/introduction.Rmd
-439cf564bb944fc85dd0e41ed2284e81 *inst/doc/introduction.html
+09a619a698a52367eb49545795503437 *inst/doc/introduction.html
 3c8d752c042e5c87c85cae8d87addf8f *man/catto_aggregate.Rd
 c350bd7f41243377178ff9dc5057fb09 *man/catto_dummy.Rd
 6e3d2e325eef73ef90fd7183ee36a29e *man/catto_freq.Rd
@@ -41,8 +41,8 @@ e0a8932453d94f48636fb8c79f1b6a78 *tests/testthat/test-freq.R
 4e15d855f45f073bb3372151ac8f7d3b *tests/testthat/test-label.R
 ae42a7e098294608e11403f7b6310ab7 *tests/testthat/test-lintfree.R
 f941397cf965d0634bc07ff7f4ad76dc *tests/testthat/test-loo.R
-2703dcdebc71a50dc56200ca483473b1 *tests/testthat/test-mean.R
-d589a2081c5f07022eb2f37aae6df3f9 *tests/testthat/test-median.R
+0144e17c0f531d24bc07001aa1a8f835 *tests/testthat/test-mean.R
+d0a80986dfbdc4af094f22f933106f69 *tests/testthat/test-median.R
 16d42644fa6de25032620bc9643818ec *tests/testthat/test-onehot.R
 b11237271e03e818cf39ec48d751179a *tests/testthat/test-print-cattonum-df.txt
 054a085d9c5babd046f3ab928d70ac2a *tests/testthat/test-print-cattonum-df2.txt
